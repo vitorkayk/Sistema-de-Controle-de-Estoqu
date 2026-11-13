@@ -14,11 +14,29 @@ def consultar_estoque():
         for nome, quantidade in estoque.items():
             print(f"{nome}: {quantidade} unidades")
 
+def registrar_saida():
+    nome = input("Produto: ")
+
+    if nome not in estoque:
+        print("Produto não encontrado.")
+        return
+
+    quantidade = int(input("Quantidade retirada: "))
+
+    if quantidade <= 0:
+        print("Informe uma quantidade válida.")
+    elif quantidade > estoque[nome]:
+        print("Estoque insuficiente.")
+    else:
+        estoque[nome] -= quantidade
+        print("Saída registrada com sucesso!")
+
 def menu():
     while True:
         print("\n=== SISTEMA DE ESTOQUE ===")
         print("1 - Cadastrar produto")
         print("2 - Consultar estoque")
+        print("3 - Registrar saída")
         print("0 - Sair")
 
         opcao = input("Escolha: ")
@@ -27,6 +45,8 @@ def menu():
             cadastrar_produto()
         elif opcao == "2":
             consultar_estoque()
+        elif opcao == "3":
+            registrar_saida()
         elif opcao == "0":
             break
         else:
